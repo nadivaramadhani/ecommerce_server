@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "",
+    "database": "CMS",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "admin",
+    "password": "test123",
+    "database": "CMS_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
