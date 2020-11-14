@@ -8,9 +8,6 @@ module.exports = function (err, req, res, next) {
             return x.message
         })
         msg = errors.join(', ')
-    } else if (err.name === 'SequelizeUniqueConstraintError'){
-        status = 400;
-        msg = 'This Email has already taken'
     } else if (err.msg === 'Wrong Email/Password'){
         status = 401;
         msg = "Wrong Email/Password"

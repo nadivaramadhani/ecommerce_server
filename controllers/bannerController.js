@@ -1,28 +1,28 @@
-const { Product, User} = require('../models');
+const { Banner, User} = require('../models');
 
-class ProductController{
+class BannerController{
 
-    static listProduct(req, res, next){
-        Product
+    static listBanner(req, res, next){
+        Banner
         .findAll()
         .then(data => {
             res.status(200).json(data)
         })
         .catch(err => {
-            // console.log(err, "<<<<<< ERROR LIST Product")
+            // console.log(err, "<<<<<< ERROR LIST Banner")
             // res.status(400).json(err)
             next(err)
         })
     }
 
-    static addProduct(req, res, next){
+    static addBanner(req, res, next){
         let { name, image_url, price, stock } = req.body;
 
-        const newProduct = {
+        const newBanner = {
             name, image_url, price, stock, UserId:req.loggedInUser.id
         }
 
-        Product.create(newProduct)
+        Banner.create(newBanner)
         .then(data => {
             res.status(201).json(data)
         })
@@ -33,33 +33,16 @@ class ProductController{
         })
     }
 
-    static editProduct(req,res){
-        const UserId = req.loggedInUser.id;
-        const Id = req.params.id;
-        
-        Product.findByPk(Id, {
-            where: {
-                UserId
-            }
-        })
-        .then(data => {
-            res.status(202).json(data)
-        })
-        .catch (err => {
-            // res.status(400).json(err)
-            next(err)
-        })
-    }
 
-    static updateProduct(req,res, next){
+    static updateBanner(req,res, next){
         const id = req.params.id;
         let { name, image_url, price, stock } = req.body;
         
-        const updatedProduct = {
+        const updatedBanner = {
             name, image_url, price, stock
         }
 
-        Product.update(updatedProduct, { 
+        Banner.update(updatedBanner, { 
             where: { id: id }, 
             returning: true 
         })
@@ -76,7 +59,7 @@ class ProductController{
     static delete(req, res, next){
         const Id = req.params.id;
 
-       Product.destroy({ 
+       Banner.destroy({ 
             where: 
                 { id: Id }
         })
@@ -93,4 +76,4 @@ class ProductController{
     
 }
 
-module.exports = ProductController;
+module.exports = BannerController;

@@ -5,6 +5,7 @@ const app = require("../app")
 
 let token;
 let id;
+let product;
 
 beforeAll(done => {
     req(app)
@@ -67,6 +68,7 @@ describe("Test Endpoint /products", () => {
             })
             .then(res => {
                 const { body, status } = res
+                product = body;
                 // id = body.id;
                 expect(status).toBe(201) // body = { name, image_url, price, stock }
                 expect(body).toHaveProperty('name', expect.any(String)) /// { name: string}
@@ -130,27 +132,28 @@ describe("Test Endpoint /products", () => {
         })
     })
 
-    // describe("Test Endpoint GET ", () => {
-    //     it("Test GET list Product Success", (done) => {
-    //         req(app)
-    //         .get("/products")
-    //         .set({
-    //             token
-    //         })
-    //         .then(res => {
-    //             const { body, status } = res
-    //             expect(status).toBe(200) // body = { name, image_url, price, stock }
-    //             expect(body).toHaveProperty('name', expect.any(String)) /// { name: string}
-    //             expect(body).toHaveProperty('image_url', expect.any(String)) 
-    //             expect(body).toHaveProperty('price', expect.any(Number))
-    //             expect(body).toHaveProperty('stock', expect.any(Number))
-    //             done()
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //         })
-    //     })
-    // })
+    describe("Test Endpoint GET ", () => {
+        it("Test GET list Product Success", (done) => {
+            req(app)
+            .get("/products")
+            .set({
+                token
+            })
+            .then(res => {
+                const { body, status } = res
+                expect(status).toBe(200) // body = { name, image_url, price, stock }
+                expect(body).toEqual(expect.arrayContaining([product]));
+                // expect(body).toHaveProperty('name', expect.any(String)) /// { name: string}
+                // expect(body).toHaveProperty('image_url', expect.any(String)) 
+                // expect(body).toHaveProperty('price', expect.any(Number))
+                // expect(body).toHaveProperty('stock', expect.any(Number))
+                done()
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        })
+    })
 
     describe("Test Endpoint PUT ", () => {
         it('Test Update Product Success', (done) => {

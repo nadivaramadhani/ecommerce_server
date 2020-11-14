@@ -13,7 +13,7 @@ app.use(express.json());
 app.use('/',router);
 app.use(errorHandler);
 
-// app.listen(PORT , () => {
-//     console.log(`This app listening at http://localhost:${PORT}`);
-// })
+app.listen(PORT , () => {
+    console.log(`This app listening at http://localhost:${PORT}`);
+})
 module.exports = app;
