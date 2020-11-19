@@ -9,8 +9,6 @@ class ProductController{
             res.status(200).json(data)
         })
         .catch(err => {
-            // console.log(err, "<<<<<< ERROR LIST Product")
-            // res.status(400).json(err)
             next(err)
         })
     }
@@ -34,14 +32,10 @@ class ProductController{
     }
 
     static editProduct(req,res){
-        const UserId = req.loggedInUser.id;
+        // const UserId = req.loggedInUser.id;
         const Id = req.params.id;
         
-        Product.findByPk(Id, {
-            where: {
-                UserId
-            }
-        })
+        Product.findByPk(Id)
         .then(data => {
             res.status(202).json(data)
         })

@@ -4,9 +4,8 @@ const { User } = require('../models');
 async function authentication(req, res, next){
     try {
         const { token } = req.headers;
-        // console.log(token, "<<<<<< ACCESS TOKEN");
         if(!token){
-            throw { msg: 'Authentication failed', status: 401 }
+            throw { msg: 'You should login First!', status: 401 }
         } else {
             const decoded = verifyToken(token);
             const user = await User.findOne({

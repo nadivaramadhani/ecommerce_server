@@ -9,17 +9,15 @@ class BannerController{
             res.status(200).json(data)
         })
         .catch(err => {
-            // console.log(err, "<<<<<< ERROR LIST Banner")
-            // res.status(400).json(err)
             next(err)
         })
     }
 
     static addBanner(req, res, next){
-        let { name, image_url, price, stock } = req.body;
+        let { title, image_url, status } = req.body;
 
         const newBanner = {
-            name, image_url, price, stock, UserId:req.loggedInUser.id
+            title, image_url, status, UserId:req.loggedInUser.id
         }
 
         Banner.create(newBanner)
@@ -27,19 +25,16 @@ class BannerController{
             res.status(201).json(data)
         })
         .catch(err => {
-            // console.log(err, "<<<<<<< ERROR POST")
-            // res.status(400).json(err)
             next(err)
         })
     }
 
-
     static updateBanner(req,res, next){
         const id = req.params.id;
-        let { name, image_url, price, stock } = req.body;
+        let { title, image_url, status } = req.body;
         
         const updatedBanner = {
-            name, image_url, price, stock
+            title, image_url, status
         }
 
         Banner.update(updatedBanner, { 
@@ -50,8 +45,6 @@ class BannerController{
             res.status(200).json(data[1][0])
         })
         .catch (err => {
-            // console.log(err)
-            // res.status(400).json(err)
             next(err)
         })
     }
@@ -69,7 +62,6 @@ class BannerController{
             })
         })
         .catch (err => {
-            // res.status(400).json(err)
             next(err)
         })
     }

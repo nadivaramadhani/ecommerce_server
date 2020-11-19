@@ -3,10 +3,24 @@ const { comparePassword } = require('../helpers/bcrypt');
 const {loginToken} = require('../helpers/jwt');
 
 class UserController {
+    static register (req, res, next) {
+        let { email, password } = req.body;
+        const newUser = {
+            email, password
+        }
+        User.create(newUser)
+        .then(user => {
+            res.status(201).json(user)
+        })
+        .catch(err => {
+            next(err);
+        })
+    }
+
     static login(req,res, next) {
         User.findOne({
             where:{
-                email:req.body.email
+                email: req.body.email
             }
         })
         .then(user => {
